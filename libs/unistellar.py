@@ -28,7 +28,11 @@ def unistellarBestGainAndExp(vmag):
         if (bestgain >= 1):
             return bestgain, exptime
         # Go down by hundreds
-        exptime = floor((exptime - 100) / 100) * 100        
+        exptime = floor((exptime - 100) / 100) * 100
+        if exptime <= 35:
+            continue
+        elif exptime > 35:
+            exptime = 35
     return bestgain, exptime
 def unstellarExoplanetURL(target, duration = 3600):
     tic = exofop_getticid(target)
