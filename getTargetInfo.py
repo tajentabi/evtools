@@ -3,7 +3,7 @@ from genericpath import isfile
 import os
 import logging
 from astropy.time import Time
-from datetime import datetime
+from datetime import datetime, UTC
 from math import log10, floor
 import astropy.units as u
 from astropy.coordinates import SkyCoord, EarthLocation, AltAz
@@ -50,7 +50,7 @@ if args.target:
     if tic:
         skypos, vmag = exofop_getcompositeinfo(tic)
         # Adjust for proper motion (milliarcsec to degrees)
-        curpos = skypos.apply_space_motion(new_obstime = Time(datetime.utcnow(), scale='utc'))
+        curpos = skypos.apply_space_motion(new_obstime = Time(datetime.now(UTC), scale='utc'))
     else:
         logger.error("Tsrget not found")
         exit(1)
