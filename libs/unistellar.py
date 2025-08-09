@@ -19,7 +19,7 @@ def unistellarFluxFromBaseFactor(vmag, exptime):
 def unistellarMaxGain(vmag, exptime):
     g = baselineGain - (log10(unistellarFluxFromBaseFactor(vmag, exptime))/log10(1.122))
     if g >= 35:
-        return 35
+        return 36
     else:
         return g
 def unistellarBestGain(vmag, exptime):
