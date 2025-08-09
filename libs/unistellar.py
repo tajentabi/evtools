@@ -17,7 +17,11 @@ fluxChangeFactor = 1.122 ** deltaGain
 def unistellarFluxFromBaseFactor(vmag, exptime):
     return (10 ** ((vmag - baselineVmag)/-2.5)) * (float(exptime)/baselineExp)
 def unistellarMaxGain(vmag, exptime):
-    return baselineGain - (log10(unistellarFluxFromBaseFactor(vmag, exptime))/log10(1.122))
+    g = baselineGain - (log10(unistellarFluxFromBaseFactor(vmag, exptime))/log10(1.122))
+    if g >= 35:
+        return 35
+    else:
+        return g
 def unistellarBestGain(vmag, exptime):
     return floor(unistellarMaxGain(vmag, exptime)) - 1
 def unistellarBestGainAndExp(vmag):
@@ -28,11 +32,7 @@ def unistellarBestGainAndExp(vmag):
         if (bestgain >= 1):
             return bestgain, exptime
         # Go down by hundreds
-        exptime = floor((exptime - 100) / 100) * 100
-        if exptime <= 35:
-            continue
-        elif exptime > 35:
-            exptime = 35
+        exptime = floor((exptime - 100) / 100) * 100        
     return bestgain, exptime
 def unstellarExoplanetURL(target, duration = 3600):
     tic = exofop_getticid(target)
