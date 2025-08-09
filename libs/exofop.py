@@ -56,7 +56,7 @@ def exofop_getcompositeinfo(tic):
             raise ValueError("Missing or invalid RA/Dec/PM fields in EXOFOP JSON.")
         dist_pc = None
         for sp in rsp.get("stellar_parameters", []):
-            dist_pc = _safe_float(sp.get("dist"))
+            dist_pc = safe_float(sp.get("dist"))
             if dist_pc is not None:
                 break
         distance = (dist_pc * u.pc) if dist_pc is not None else (1 * u.mpc)
